@@ -18,7 +18,7 @@ def site_news_all(base_url):
     news_records = []
     all_records_dict = {}
     news_urls_list = []
-    range_pg = range(1, 4)
+    range_pg = range(1, 56)
     
     driver = globals.get_selen_driver()
     
@@ -94,11 +94,11 @@ def site_news_all(base_url):
                 "url": url, 
                 "tytul": news_title, 
                 "tresc": news_text, 
-                "zalaczniki_lista": news_attach_names,
-                "zalaczniki_linki": news_attach_links,
+                "att_text": news_attach_names,
+                "att_link": news_attach_links,
                 "data_pub": creation_date,
                 "data_mod": mod_date,
-                "udostepnia" : publisher
+                "public_name" : publisher
                 }
         
         for key, value in news_record.items():

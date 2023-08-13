@@ -79,7 +79,7 @@ def site_news_all(base_url_list):
         for k in komm_all:
             news_urls_list.append("https://bip.umww.pl/" + k.find("a")["href"])
 
-    for url in news_urls_list[:20]:
+    for url in news_urls_list:
         driver.get(url)
         time.sleep(2)
 
@@ -106,14 +106,14 @@ def site_news_all(base_url_list):
             creation_date = dates.find_all(["strong","span"])
             creation_date = globals.clean_str_unicode(creation_date[2].text) 
         except:
-            creation_date = "tu jest jakis blad"
+            creation_date = ""
         
         try:
             dates = news_site_soup.find("div", id="podpis_autor_lewa")
             mod_date = dates.find_all(["strong","span"])
             mod_date = globals.clean_str_unicode(mod_date[4].text)
         except:
-            mod_date = "tu jest jakis blad"
+            mod_date = ""
 
         news_record = {
                 "url": url, 
@@ -135,7 +135,7 @@ def site_news_all(base_url_list):
     
     driver.close()
 
-    for i in range(len(news_urls_list[:20])):
+    for i in range(len(news_urls_list)):
         all_records_dict[i] = news_records[i]
 
     return all_records_dict

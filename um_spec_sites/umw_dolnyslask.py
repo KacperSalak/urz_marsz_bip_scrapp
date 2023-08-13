@@ -41,7 +41,7 @@ def site_news_all(base_url):
     all_records_dict = {}
     
     # from selenium.webdriver.chrome.options import Options
-    range_pg = range(1, 6)
+    range_pg = range(1, 47)
     driver = globals.get_selen_driver()
 
     for pg_num in range_pg:

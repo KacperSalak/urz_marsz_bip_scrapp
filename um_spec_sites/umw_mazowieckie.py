@@ -21,7 +21,7 @@ def umw_site_news(site):
     return url
 
 def site_news_all(base_url):
-    range_pg = range(1, 6)
+    range_pg = range(1, 76)
     news_urls_list = []
     news_records = []
     all_records_dict = {}
@@ -35,11 +35,14 @@ def site_news_all(base_url):
         for k in komms.find_all("a", href=True):
             news_urls_list.append("https://bip.mazovia.pl"+ k["href"])
 
-    
+    driver = globals.get_selen_driver()
+
     for url in news_urls_list:
         news_record = {}
-        news = requests.get(url)
-        soup_news = BeautifulSoup(news.content, "html.parser")
+        # news = requests.get(url)
+        driver.get(url)
+        news = driver.page_source
+        soup_news = BeautifulSoup(news, "html.parser")
         try:
             news_title = soup_news.find("h1").text 
 
@@ -90,19 +93,20 @@ def site_news_all(base_url):
             news_record = {
                 "url": url, 
                 "tytul": news_title, 
-                "podtytul":news_subtitle, 
+                "sub_tytul":news_subtitle, 
                 "tresc": news_text, 
-                "zalaczniki": list(news_files_names),
-                "udostepnia":news_public_agent,
+                "att_text": list(news_files_names),
+                "public_name":news_public_agent,
                 "data_pub": pub_dttm,
                 "data_mod": mod_dttm,
-                "liczba_odslon": views_count
+                "view_cnt": views_count
                 }
             print(news_record)
         except:
             pass
         news_records.append(news_record)
 
+    driver.quit()
     
     for i in range(len(news_urls_list)):
         all_records_dict[i] = news_records[i]

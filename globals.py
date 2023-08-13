@@ -10,6 +10,8 @@ from selenium.webdriver.chrome.service import Service
 import regex as re
 import pprint
 
+import pandas as pd
+
 def UM_SITES_DICT():
     um_lista_url = "https://www.bip.gov.pl/subjects/index/6198"
     um_lista_page = requests.get(um_lista_url)
@@ -45,8 +47,6 @@ def UM_SITES_DICT():
     return um_slownik
     # return sub_s_result
 
-print(UM_SITES_DICT())
-
 def clean_str_unicode(str_text):
     str_text = str_text.replace(u"\xa0", u"")
     str_text = str_text.replace(u"\n", u"")
@@ -68,3 +68,24 @@ def get_selen_driver():
     driver = webdriver.Chrome(service = webdriver_service, options=opt)
     
     return driver
+
+def convert_empty_list(cell_value):
+    if isinstance(cell_value, list) and len(cell_value) == 0:
+        return None
+    return cell_value
+
+def convert_to_datetime(df, column_name, date_format):
+    new_column = []
+    for cell in df[column_name]:
+        try:
+            new_date = pd.to_datetime(cell, format=date_format)
+            new_column.append(new_date)
+        except:
+            new_column.append(None)
+    df[column_name] = new_column
+    return df   
+
+
+    
+
+

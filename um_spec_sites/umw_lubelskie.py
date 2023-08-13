@@ -55,7 +55,7 @@ def site_news_all(base_url):
     news_lubel_site = driver.page_source
     time.sleep(3)
 
-    driver.close()
+    # driver.close()
     soup_lubel_news = BeautifulSoup(news_lubel_site, "html.parser")
     
     komms = soup_lubel_news.find("tbody")
@@ -63,9 +63,12 @@ def site_news_all(base_url):
         news_urls_list.append("https://umwl.bip.lubelskie.pl/index.php"+ k["href"])
 
 
-    for komm in news_urls_list[:25]:
-        stronka = requests.get(komm)
-        stronka = BeautifulSoup(stronka.content, 'html.parser')
+    for komm in news_urls_list:
+        # stronka = requests.get(komm)
+        driver.get(komm)
+        stronka = driver.page_source
+        time.sleep(2)
+        stronka = BeautifulSoup(stronka, 'html.parser')
 
         try:
             # news_all = stronka.find_all("div", class_="col-md-9 text-bold")
@@ -126,16 +129,18 @@ def site_news_all(base_url):
                 "url": komm,
                 "tytul": news_title,
                 "tresc": news_text,
-                "zalaczniki": zalacz_text,
-                "zalaczniki_linki": zalacz_files,
+                "att_text": zalacz_text,
+                "att_link": zalacz_files,
                 "data_pub": creation_date
                 }
         except:
             # news_record = {}
             pass
         news_records.append(news_record)
+    
+    driver.quit()
 
-    for i in range(len(news_urls_list[:25])):
+    for i in range(len(news_urls_list)):
         all_records_dict[i] = news_records[i]
 
     return all_records_dict

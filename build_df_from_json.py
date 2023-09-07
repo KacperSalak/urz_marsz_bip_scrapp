@@ -4,7 +4,7 @@ def build_combined_df():
     from globals import convert_empty_list
     from globals import convert_to_datetime
 
-    df_lodz = pd.read_json("umw_news_results_curated/umw_lodz_news_c.json").T
+    df_lodz = pd.read_json("/home/kacper/mag_data_liter/urz_marsz_bip_scrapp/umw_news_results_curated/umw_lodz_news_c.json").T
 
     # set correct datatypes for easier data manipulation
     df_lodz['view_cnt'] = df_lodz['view_cnt'].apply(pd.to_numeric)
@@ -32,7 +32,7 @@ def build_combined_df():
 
     # UMW Lubelskiego
 
-    df_lubel = pd.read_json("umw_news_results_curated/umw_lubel_news_c.json").T
+    df_lubel = pd.read_json("/home/kacper/mag_data_liter/urz_marsz_bip_scrapp/umw_news_results_curated/umw_lubel_news_c.json").T
 
     df_lubel =  convert_to_datetime(df_lubel, 'data_pub', '%Y-%m-%d') 
 
@@ -46,7 +46,7 @@ def build_combined_df():
 
     # UMW Mazowieckiego
 
-    df_maz = pd.read_json("umw_news_results_curated/umw_maz_news_c.json").T
+    df_maz = pd.read_json("/home/kacper/mag_data_liter/urz_marsz_bip_scrapp/umw_news_results_curated/umw_maz_news_c.json").T
 
     df_maz =  convert_to_datetime(df_maz, 'data_pub', '%d.%m.%Y')
     df_maz =  convert_to_datetime(df_maz, 'data_mod', '%d.%m.%Y')
@@ -62,7 +62,7 @@ def build_combined_df():
 
     # UMW Podlaskiego
 
-    df_podlas = pd.read_json("umw_news_results_curated/umw_podlas_news_c.json").T
+    df_podlas = pd.read_json("/home/kacper/mag_data_liter/urz_marsz_bip_scrapp/umw_news_results_curated/umw_podlas_news_c.json").T
 
     df_podlas =  convert_to_datetime(df_podlas, 'data_pub', '%Y-%m-%d')
     df_podlas =  convert_to_datetime(df_podlas, 'data_mod', '%Y-%m-%d')
@@ -77,7 +77,7 @@ def build_combined_df():
 
     # UMW Wielkopolskiego
 
-    df_wielkopol = pd.read_json("umw_news_results_curated/umw_wielkopol_news_c.json").T
+    df_wielkopol = pd.read_json("/home/kacper/mag_data_liter/urz_marsz_bip_scrapp/umw_news_results_curated/umw_wielkopol_news_c.json").T
 
     df_wielkopol =  convert_to_datetime(df_wielkopol, 'data_pub', '%Y-%m-%d %H:%M:%S')
     df_wielkopol =  convert_to_datetime(df_wielkopol, 'data_mod', '%Y-%m-%d %H:%M:%S')
